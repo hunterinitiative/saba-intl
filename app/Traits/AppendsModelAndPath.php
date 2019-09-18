@@ -2,6 +2,8 @@
 
 namespace App\Traits;
 
+use Illuminate\Support\Str;
+
 Trait AppendsModelAndPath {
     /**
      * Get a string path for the model.
@@ -38,5 +40,12 @@ Trait AppendsModelAndPath {
      *
      * @var array
      */
-    protected $appends = ['model', 'path'];
+    // protected $appends = ['model', 'path']; // https://laracasts.com/discuss/channels/general-discussion/define-model-attributes-in-trait?page=1
+
+    protected function getArrayableAppends()
+    {
+        $this->appends = array_unique(array_merge($this->appends, ['model', 'path']));
+
+        return parent::getArrayableAppends();
+    }
 }
