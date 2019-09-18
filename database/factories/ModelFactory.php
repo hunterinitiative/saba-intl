@@ -1,26 +1,29 @@
 <?php
 
-use Faker\Generator as Faker;
+// DevNote: This class is redundant; let's create a factory for each model, and use this later if needed.
 
-/*
-|--------------------------------------------------------------------------
-| Model Factories
-|--------------------------------------------------------------------------
-|
-| This directory should contain each of the model factory definitions for
-| your application. Factories provide a convenient way to generate new
-| model instances for testing / seeding your application's database.
-|
- */
+// use Faker\Generator as Faker;
 
-$factory->define(App\User::class, function (Faker $faker) {
-    static $password;
+// /*
+// |--------------------------------------------------------------------------
+// | Model Factories
+// |--------------------------------------------------------------------------
+// |
+// | This directory should contain each of the model factory definitions for
+// | your application. Factories provide a convenient way to generate new
+// | model instances for testing / seeding your application's database.
+// |
+//  */
 
-    return [
-        'first_name' => $faker->firstName,
-        'last_name' => $faker->lastName,
-        'email' => $faker->unique()->safeEmail,
-        'password' => $password ? : $password = bcrypt('secret'),
-        'remember_token' => str_random(10),
-    ];
-});
+// $factory->define(App\User::class, function (Faker $faker) {
+//     static $password;
+
+//     return [
+//         'first_name' => $faker->firstName,
+//         'last_name' => $faker->lastName,
+//         'email' => $faker->unique()->safeEmail,
+//         'email_verified_at' => now(),
+//         'password' => $password ? : $password = bcrypt('password'),
+//         'remember_token' => Str::random(10),
+//     ];
+// });

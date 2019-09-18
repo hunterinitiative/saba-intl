@@ -22,7 +22,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'obura@tongoi.com',
             'first_name' => 'Sammy',
             'last_name' => 'Tongoi',
-            'password' => '',
+            'password' => bcrypt('password'),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
           ));
@@ -31,7 +31,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'samihchege@gmail.com',
             'first_name' => 'Sam',
             'last_name' => 'Chege',
-            'password' => '',
+            'password' => bcrypt('password'),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
           ));
