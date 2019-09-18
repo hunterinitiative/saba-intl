@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Traits\AppendsModelAndPath;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -9,7 +10,7 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use Notifiable, Sluggable;
+    use Notifiable, Sluggable, AppendsModelAndPath;
 
     /**
      * Return the sluggable configuration array for this model.
@@ -74,33 +75,4 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    /**
-     * Get a string path for the model.
-     *
-     * @return string
-     */
-    public function path() : string
-    {
-        return "/". $this->getModelAttribute() ."/{$this->slug}";
-    }
-
-    /**
-     * Get a string path for the model.
-     *
-     * @return string
-     */
-    public function getPathAttribute() : string
-    {
-        return $this->path();
-    }
-
-    /**
-     * Get the name of the model.
-     *
-     * @return string
-     */
-    public function getModelAttribute() : string
-    {
-        return Str::plural(strtolower(class_basename((get_class($this)))));
-    }
 }
