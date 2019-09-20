@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Admin;
+use App\Http\Requests\StoreAdmin;
+use App\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -30,12 +32,26 @@ class AdminController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreAdmin  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreAdmin $request)
     {
-        //
+        $this->authorize('modify', Admin::class);
+        
+        try {
+            if( User::find($request->user_id) ) {
+                Admin::create([
+                    'user_id' => $request->user_id,
+                    'is_super_admin' => $request->is_super_admin ?? 0
+                ]);
+            }
+        } catch (\Exception $e) {
+            dump($e);
+        }
+        
+
+        return redirect()->route('admins.index');
     }
 
     /**

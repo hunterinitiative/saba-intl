@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Traits\AppendsModelAndPath;
+use App\Traits\Paginated;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -10,7 +11,7 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use Notifiable, Sluggable, AppendsModelAndPath;
+    use Notifiable, Sluggable, AppendsModelAndPath, Paginated;
 
     /**
      * Return the sluggable configuration array for this model.
@@ -75,33 +76,19 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    // /**
-    //  * Get a string path for the model.
-    //  *
-    //  * @return string
-    //  */
-    // public function path() : string
-    // {
-    //     return "/". $this->getModelAttribute() ."/{$this->slug}";
-    // }
+    public function isAdmin()
+    {
+        return $this->admin()->exists();
+    }
 
-    // /**
-    //  * Get a string path for the model.
-    //  *
-    //  * @return string
-    //  */
-    // public function getPathAttribute() : string
-    // {
-    //     return $this->path();
-    // }
+    public function isSuperAdmin()
+    {
+        return $this->admin()->where('is_super_admin', 1)->exists();
+    }
 
-    // /**
-    //  * Get the name of the model.
-    //  *
-    //  * @return string
-    //  */
-    // public function getModelAttribute() : string
-    // {
-    //     return Str::plural(strtolower(class_basename((get_class($this)))));
-    // }
+    public function admin()
+    {
+        return $this->hasOne('App\Admin');
+    }
+
 }
