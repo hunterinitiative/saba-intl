@@ -12,11 +12,11 @@
         "ptdd": "executor './vendor/bin/paratest --colors' --watch='**/*.php' --ignore='node_modules/' --ignore='vendor/'"
     },
     "devDependencies": {
-        "@lassehaslev/executor": "^1.0.1",
+        "@lassehaslev/executor": "^2.3.1",
         "axios": "^0.19",
         "bootstrap": "^4.0.0",
         "browser-sync": "^2.26.7",
-        "browser-sync-webpack-plugin": "^2.0.1",
+        "browser-sync-webpack-plugin": "^2.2.2",
         "cross-env": "^5.1",
         "jquery": "^3.2",
         "laravel-mix": "^4.0.7",
@@ -28,5 +28,8 @@
         "sass-resources-loader": "^2.0.1",
         "vue": "^2.5.17",
         "vue-template-compiler": "^2.6.10"
+    },
+    "dependencies": {
+        "webpack": "^4.40.2"
     }
 }
