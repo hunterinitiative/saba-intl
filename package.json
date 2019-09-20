@@ -12,7 +12,7 @@
         "ptdd": "executor './vendor/bin/paratest --colors' --watch='**/*.php' --ignore='node_modules/' --ignore='vendor/'"
     },
     "devDependencies": {
-        "@lassehaslev/executor": "^2.3.1",
+        "@lassehaslev/executor": "^1.0.1",
         "axios": "^0.19",
         "bootstrap": "^4.0.0",
         "browser-sync": "^2.26.7",
