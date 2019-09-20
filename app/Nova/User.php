@@ -22,7 +22,7 @@ class User extends Resource
      *
      * @var string
      */
-    public static $title = 'name';
+    public static $title = 'fullname';
 
     /**
      * The columns that should be searched.
@@ -46,7 +46,11 @@ class User extends Resource
 
             Gravatar::make(),
 
-            Text::make('Name')
+            Text::make('First Name')
+                ->sortable()
+                ->rules('required', 'max:255'),
+
+            Text::make('Last Name')
                 ->sortable()
                 ->rules('required', 'max:255'),
 
