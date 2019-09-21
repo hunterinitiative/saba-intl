@@ -30,6 +30,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "braces": "^3.0.2",
         "webpack": "^4.40.2"
     }
 }

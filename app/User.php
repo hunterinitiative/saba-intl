@@ -2,7 +2,9 @@
 
 namespace App;
 
+
 use App\Traits\AppendsModelAndPath;
+use App\Traits\Administrates;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -10,7 +12,7 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use Notifiable, Sluggable, AppendsModelAndPath;
+    use Notifiable, Sluggable, AppendsModelAndPath, Administrates;
 
     /**
      * Return the sluggable configuration array for this model.
@@ -74,20 +76,5 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function isAdmin()
-    {
-        return $this->admin()->exists();
-    }
-
-    public function isSuperAdmin()
-    {
-        return $this->admin()->where('is_super_admin', 1)->exists();
-    }
-
-    public function admin()
-    {
-        return $this->hasOne('App\Admin');
-    }
 
 }

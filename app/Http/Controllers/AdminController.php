@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Admin;
+use App\Exceptions\AdminAlreadyExistsException;
 use App\Http\Requests\StoreAdmin;
 use App\User;
+use Exception;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -40,14 +42,12 @@ class AdminController extends Controller
         $this->authorize('modify', Admin::class);
         
         try {
-            if( User::find($request->user_id) ) {
-                Admin::create([
-                    'user_id' => $request->user_id,
-                    'is_super_admin' => $request->is_super_admin ?? 0
-                ]);
-            }
+            User::find($request->user_id)
+                ->makeAdmin($request->is_super_admin ?? 0);
+        } catch (AdminAlreadyExistsException $e) {
+            throw new AdminAlreadyExistsException($e->getMessage(), 403, $e);
         } catch (\Exception $e) {
-            dump($e);
+            throw new Exception($e->getMessage(), 403, $e);
         }
         
 
