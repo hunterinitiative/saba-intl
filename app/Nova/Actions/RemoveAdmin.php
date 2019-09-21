@@ -2,9 +2,7 @@
 
 namespace App\Nova\Actions;
 
-use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
-use App\Exceptions\AdminAlreadyExistsException;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Collection;
 use Laravel\Nova\Fields\ActionFields;
@@ -12,10 +10,8 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Laravel\Nova\Actions\DestructiveAction;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Laravel\Nova\Actions\Action;
-use Laravel\Nova\Fields\Boolean;
 
-class MakeAdmin extends DestructiveAction
+class RemoveAdmin extends DestructiveAction
 {
     use InteractsWithQueue, Queueable, SerializesModels;
 
@@ -29,16 +25,15 @@ class MakeAdmin extends DestructiveAction
     public function handle(ActionFields $fields, Collection $models)
     {
         try {
-            $models->each(function($model) use ($fields) {
-                $model->makeAdmin($fields->is_super_admin);
+            $models->each(function($model) {
+                $model->removeAdmin();
             });
-        } catch (AdminAlreadyExistsException $e) {
-            return Action::danger($e->getMessage());
         } catch (AuthorizationException $e) {
             return Action::danger($e->getMessage());
         } catch (Exception $e) {
             return Action::danger($e->getMessage());
-        } 
+        }
+        
     }
 
     /**
@@ -48,8 +43,6 @@ class MakeAdmin extends DestructiveAction
      */
     public function fields()
     {
-        return [
-            Boolean::make('Is Super Admin'),
-        ];
+        return [];
     }
 }

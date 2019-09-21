@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Admin;
 use App\Exceptions\AdminAlreadyExistsException;
 use App\User;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -167,6 +168,27 @@ class AdminTest extends TestCase
         ]);
 
         $user->removeAdmin();
+        
+        $this->assertDatabaseMissing('admins', [
+            'user_id' => $user->id,
+        ]);
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function an_admin_user_can_be_removed_directly()
+    {
+        $this->authenticateAsSuperAdmin();
+
+        $user = create('App\User');
+        
+        $user->makeAdmin();
+
+        $admin = Admin::where('user_id', $user->id)->first();
+
+        $admin->removeAdmin();
         
         $this->assertDatabaseMissing('admins', [
             'user_id' => $user->id,

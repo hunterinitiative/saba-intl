@@ -28,7 +28,7 @@ class AppendsModelandPathTraitTest extends TestCase
      * @test
      * @return void
      */
-    public function it_appends_model_and_path_to_models()
+    public function it_appends_model_and_path_to_a_model()
     {
         $user = create('App\User');
         $this->assertArrayHasKey('model', $user);

@@ -12,4 +12,9 @@ class Admin extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public function removeAdmin()
+    {
+        return $this->user()->first()->removeAdmin();
+    }
 }

@@ -2,10 +2,11 @@
 
 namespace App\Nova;
 
+use App\Admin as AppAdmin;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Boolean;
-use Laravel\Nova\Fields\Number;
+// use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Date;
@@ -93,7 +94,11 @@ class Admin extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            (new Actions\RemoveAdmin)->canSee(function($request){
+                return $request->user()->can('modify', AppAdmin::class);
+            })
+        ];
     }
 
     /**
