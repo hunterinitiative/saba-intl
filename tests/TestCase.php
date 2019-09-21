@@ -26,6 +26,17 @@ abstract class TestCase extends BaseTestCase
         $this->actingAs($user);
         return $this;
     }
+
+    protected function authenticateAsAdmin($user = null)
+    {
+        $user = $user ?? create('App\User');
+
+        $user->admin()->create();
+
+        $this->actingAs($user);
+        
+        return $this;
+    }
     
     // Hat tip, @adamwathan.
     protected function disableExceptionHandling()
