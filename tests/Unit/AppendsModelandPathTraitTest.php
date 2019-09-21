@@ -12,13 +12,26 @@ class AppendsModelandPathTraitTest extends TestCase
      * @test
      * @return void
      */
-    public function itAppendsModelAndPathToModelsWithMatchingTrait()
+    public function it_appends_model_and_path_to_a_collection_of_models()
     {
-        create('App\User');
+        create('App\User', [], 2);
 
-        $user = \App\User::first();
+        $users = \App\User::all();
 
-        $this->assertArrayHasKey('model', $user->toArray());
-        $this->assertArrayHasKey('path', $user->toArray());
+        $users->each(function($user){
+            $this->assertArrayHasKey('model', $user);
+            $this->assertArrayHasKey('path', $user);
+        });
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function it_appends_model_and_path_to_models()
+    {
+        $user = create('App\User');
+        $this->assertArrayHasKey('model', $user);
+        $this->assertArrayHasKey('path', $user);
     }
 }
