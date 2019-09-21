@@ -13,7 +13,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class AdminTest extends TestCase
 {
 
-    public function authenticateAsSuperAdmin($user = null)
+    protected function authenticateAsSuperAdmin($user = null)
     {
         $user = $user ?? create('App\User');
 
