@@ -16,6 +16,7 @@
         "laravel/nova": "*"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.2",
         "brianium/paratest": "^3.0",
         "facade/ignition": "^1.4",
         "fzaninotto/faker": "^1.4",
