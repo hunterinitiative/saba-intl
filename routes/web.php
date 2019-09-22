@@ -20,3 +20,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('admins', 'AdminController');
+
+Route::resource('stories', 'StoryController')->only('index', 'show');
